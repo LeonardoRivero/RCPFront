@@ -33,15 +33,30 @@
 #   app.network:
 #este docker compose funciona pero es muy lento
 
-version: '3.9'
+# version: '3.9'
+# services:
+#   api:
+#     build:
+#       dockerfile: Dockerfile
+#       context: .
+#       target: development
+#     volumes:
+#       - .:/usr/src/app
+#     command: npm run start
+#     ports:
+#       - '8080:8080'
 services:
-  api:
-    build:
-      dockerfile: Dockerfile
-      context: .
-      target: development
-    volumes:
-      - .:/usr/src/app
-    command: npm run start
+  mysql:
+    image: mysql:8.0
     ports:
-      - '8080:8080'
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=Rcp2024Dev
+      - MYSQL_DATABASE=RCP
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

@@ -57,7 +57,7 @@
               dense
               round
               flat
-              color="grey"
+              color="secondary"
               @click="editMedicalOffice(props)"
               icon="edit"
             ></q-btn>
@@ -65,7 +65,7 @@
               dense
               round
               flat
-              color="grey"
+              color="accent"
               @click="removeRow(props)"
               icon="delete"
             ></q-btn>

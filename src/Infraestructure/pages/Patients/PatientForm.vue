@@ -1,9 +1,8 @@
 <template>
-  <div class="q-pa-md">
-    <div class="text-h6 text-grey">
+  <div class="q-pa-md" style="background-color: whitesmoke">
+    <div class="text-h6" style="color: #003262">
       <q-icon name="mdi-account-multiple-plus" size="32px" />
       Pacientes
-      <q-separator inset />
     </div>
   </div>
 
@@ -30,7 +29,6 @@
             label="Nº Documento"
             clearable
             dense
-            type="number"
             @keydown.enter.prevent="searchPatient"
           >
             <template v-slot:prepend>

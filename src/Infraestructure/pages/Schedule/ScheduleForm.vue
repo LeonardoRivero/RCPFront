@@ -16,12 +16,11 @@
         <q-input
           outlined
           dense
-          type="number"
           v-model="state.identificationPatient"
           @keydown.enter.prevent="searchPatient()"
           label="N° Identificacion"
           lazy-rules
-          :rules="[(val) => val > 0 || 'Numero invalido']"
+          :rules="[anySpace]"
         >
           <template v-slot:append>
             <q-btn
@@ -56,7 +55,6 @@
           label="Apellido Paciente"
         />
       </div>
-
       <div class="col-12 col-sm-6">
         <q-input
           standout
@@ -75,9 +73,6 @@
           label="Email"
         />
       </div>
-
-      <!-- <q-item-label class="q-pb-xs"> <b> Datos Generales: </b></q-item-label> -->
-
       <div class="col-12 col-sm-6">
         <q-select
           dense
@@ -226,7 +221,11 @@
   } from 'src/Application/Utilities/Constants';
   import 'src/css/app.sass';
   import { Messages } from 'src/Application/Utilities';
-  import { required, isNotNull } from 'src/Application/Utilities/Helpers';
+  import {
+    required,
+    isNotNull,
+    anySpace,
+  } from 'src/Application/Utilities/Helpers';
   import { usePlocState } from 'src/Infraestructure/Utilities/usePlocState';
   import { IHandleGlobalState, IHandleUserState } from 'src/Domine/IPatterns';
   import { MedicalOfficeResponse } from 'src/Domine/Responses';

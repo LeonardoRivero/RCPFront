@@ -65,6 +65,7 @@ export class InfoPatientPanelBloc extends Bloc<InfoPatientState> {
       throw Error('Instancia no admitida');
     }
     const scheduleResponse = <ScheduleResponse>data
+    console.log('handle');
     this.changeState({ ...this.state, identificationPatient: scheduleResponse.patient.identification })
     await this.patientHasAppointment(scheduleResponse.id, scheduleResponse.medicalOffice)
   };
@@ -102,7 +103,7 @@ export class InfoPatientPanelBloc extends Bloc<InfoPatientState> {
     this.changeState({
       ...this.state,
       currentPatient: patient,
-      age: this.helper.calculateAge(patient.dateBirth),
+      age: this.helper.calculateAge(dateBirth.toString()),
       showSkeleton: false
     });
 

@@ -21,7 +21,7 @@
                   </q-tooltip>
                 </q-btn>
                 <q-btn
-                  color="green"
+                  color="tertiary"
                   size="12px"
                   flat
                   dense
@@ -105,100 +105,100 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { storeToRefs } from 'pinia';
-import DataTable from 'src/Infraestructure/components/commons/DataTable.vue';
-import { useStorePhysicalExamParameter } from 'src/Infraestructure/Mediators/SettingsPage/PhysicalExamStore';
-import { PhysicalExamParameterController } from 'src/Adapters/PhysicalExamAdapter';
-import { IPhysicalExam } from 'src/Domine/Request';
-import { useStoreDataTable } from '../../Mediators/Common/DatatableStore';
-import { SettingsMediator } from '../../Mediators';
-import { PhysicalExamParameterState } from 'src/Domine/IStates';
-import { PhysicalExamResponse } from 'src/Domine/Responses';
-import { QForm } from 'quasar';
-import { required, isNotNull } from 'src/Application/Utilities/Helpers';
-import 'src/css/app.sass';
-import { IFactoryMethodNotifications } from 'src/Domine/IPatterns';
-// import container from 'src/inversify.config';
-import { BuilderTables } from 'src/Infraestructure/Utilities/BuildersTables';
+  import { defineComponent, onMounted, reactive, ref } from 'vue';
+  import { storeToRefs } from 'pinia';
+  import DataTable from 'src/Infraestructure/components/commons/DataTable.vue';
+  import { useStorePhysicalExamParameter } from 'src/Infraestructure/Mediators/SettingsPage/PhysicalExamStore';
+  import { PhysicalExamParameterController } from 'src/Adapters/PhysicalExamAdapter';
+  import { IPhysicalExam } from 'src/Domine/Request';
+  import { useStoreDataTable } from '../../Mediators/Common/DatatableStore';
+  import { SettingsMediator } from '../../Mediators';
+  import { PhysicalExamParameterState } from 'src/Domine/IStates';
+  import { PhysicalExamResponse } from 'src/Domine/Responses';
+  import { QForm } from 'quasar';
+  import { required, isNotNull } from 'src/Application/Utilities/Helpers';
+  import 'src/css/app.sass';
+  import { IFactoryMethodNotifications } from 'src/Domine/IPatterns';
+  // import container from 'src/inversify.config';
+  import { BuilderTables } from 'src/Infraestructure/Utilities/BuildersTables';
 
-export default defineComponent({
-  name: 'PhysicalExamForm',
-  components: {
-    DataTable,
-  },
-  setup() {
-    const mediator = SettingsMediator.getInstance();
-    const form = ref<QForm>();
-    const { disable, rows, columnsr, titleTable, userCanEdit } = storeToRefs(
-      useStorePhysicalExamParameter()
-    );
+  export default defineComponent({
+    name: 'PhysicalExamForm',
+    components: {
+      DataTable,
+    },
+    setup() {
+      const mediator = SettingsMediator.getInstance();
+      const form = ref<QForm>();
+      const { disable, rows, columnsr, titleTable, userCanEdit } = storeToRefs(
+        useStorePhysicalExamParameter()
+      );
 
-    const state: PhysicalExamParameterState = reactive({
-      currentPhysicalExamParameter: {
-        active: true,
-        description: '',
-      } as IPhysicalExam,
-      allPhysicalMedicalParameter: [] as Array<PhysicalExamResponse>,
-      disable: false,
-      allSpecialities: [],
-      userCanEdit: false,
-    });
+      const state: PhysicalExamParameterState = reactive({
+        currentPhysicalExamParameter: {
+          active: true,
+          description: '',
+        } as IPhysicalExam,
+        allPhysicalMedicalParameter: [] as Array<PhysicalExamResponse>,
+        disable: false,
+        allSpecialities: [],
+        userCanEdit: false,
+      });
 
-    const storeDataTable = useStoreDataTable();
-    const { tableOptions } = storeToRefs(storeDataTable);
-    const factoryNotificator = {} as IFactoryMethodNotifications;
-    const controller = new PhysicalExamParameterController(
-      state,
-      factoryNotificator
-    );
-    // const dataTableController = DataTableController.getInstance(storeDataTable);
+      const storeDataTable = useStoreDataTable();
+      const { tableOptions } = storeToRefs(storeDataTable);
+      const factoryNotificator = {} as IFactoryMethodNotifications;
+      const controller = new PhysicalExamParameterController(
+        state,
+        factoryNotificator
+      );
+      // const dataTableController = DataTableController.getInstance(storeDataTable);
 
-    onMounted(async () => {
-      state.allSpecialities = await mediator.getAllSpecialities();
-      const builder = new BuilderTables();
-      builder.setData(columnsr.value, rows.value, titleTable.value);
-      builder.hasSearchField();
-      builder.setSelectionRow();
-      tableOptions.value = builder.getResult();
-      tableOptions.value.observer = controller;
-      // dataTableController.attach(adapter);
-    });
+      onMounted(async () => {
+        state.allSpecialities = await mediator.getAllSpecialities();
+        const builder = new BuilderTables();
+        builder.setData(columnsr.value, rows.value, titleTable.value);
+        builder.hasSearchField();
+        builder.setSelectionRow();
+        tableOptions.value = builder.getResult();
+        tableOptions.value.observer = controller;
+        // dataTableController.attach(adapter);
+      });
 
-    return {
-      controller,
-      state,
-      tableOptions,
-      form,
-      disable,
-      userCanEdit,
-      required,
-      isNotNull,
-      async confirmChanges() {
-        const isValid = await form.value?.validate();
-        if (isValid == false) return;
-        const response = await controller.saveOrUpdate();
-        if (response != null) {
+      return {
+        controller,
+        state,
+        tableOptions,
+        form,
+        disable,
+        userCanEdit,
+        required,
+        isNotNull,
+        async confirmChanges() {
+          const isValid = await form.value?.validate();
+          if (isValid == false) return;
+          const response = await controller.saveOrUpdate();
+          if (response != null) {
+            form.value?.reset();
+          }
+        },
+
+        async specialityChanged(id: number) {
+          const response = await controller.specialityChanged(id);
+          const [columns, dataRows] = controller.getColumnsAndRows(response);
+          tableOptions.value.columns = columns;
+          tableOptions.value.rows = dataRows;
+          // dataTableController.updateData(columns, dataRows);
+        },
+        async add() {
+          controller.add();
           form.value?.reset();
-        }
-      },
+        },
 
-      async specialityChanged(id: number) {
-        const response = await controller.specialityChanged(id);
-        const [columns, dataRows] = controller.getColumnsAndRows(response);
-        tableOptions.value.columns = columns;
-        tableOptions.value.rows = dataRows;
-        // dataTableController.updateData(columns, dataRows);
-      },
-      async add() {
-        controller.add();
-        form.value?.reset();
-      },
-
-      edit() {
-        controller.edit();
-      },
-    };
-  },
-});
+        edit() {
+          controller.edit();
+        },
+      };
+    },
+  });
 </script>

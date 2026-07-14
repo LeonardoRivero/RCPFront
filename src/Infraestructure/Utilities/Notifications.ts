@@ -100,8 +100,8 @@ export class SweetAlertModal implements Notificator {
       icon: this.icon,
       text: this.message,
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#003262',
+      cancelButtonColor: '#e63946',
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Aceptar',
       timer: this.timeout,
@@ -139,7 +139,7 @@ export class SweetDrawAttention implements Notificator {
       title: this.title,
       text: this.message,
       allowOutsideClick: false,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#003262',
       confirmButtonText: 'Aceptar',
     });
     return false;

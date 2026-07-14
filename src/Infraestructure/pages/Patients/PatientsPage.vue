@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="q-pa-sm" style="background-color: whitesmoke">
     <Patients />
   </q-page>
 </template>

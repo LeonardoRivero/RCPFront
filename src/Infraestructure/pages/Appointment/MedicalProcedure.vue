@@ -16,7 +16,6 @@
   />
   <q-input
     v-model="state.procedureObservations"
-    filled
     type="textarea"
     label="Observaciones"
     autogrow

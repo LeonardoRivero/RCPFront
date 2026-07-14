@@ -1,5 +1,9 @@
 <template>
-  <q-page>
+  <q-page class="q-pa-sm" style="background-color: whitesmoke">
+    <div class="text-h6 text-primary">
+      <q-icon name="img:schedule-calendar-black.svg" size="32px" />
+      Admisiones
+    </div>
     <!-- <div class="row q-col-gutter-x-md">
       <div class="col-12 col-md">
         <div class="row q-col-gutter-sm q-ma-xs q-mr-sm">
@@ -33,6 +37,8 @@
 <script setup lang="ts">
   import AdmissionForm from './AdmissionForm.vue';
   import 'src/css/app.sass';
+  import { IconSVG } from 'src/Application/Utilities';
+  const icons = IconSVG;
   const columns = [
     {
       name: 'desc',
@@ -513,3 +519,8 @@
     },
   ];
 </script>
+<style scoped>
+  .my-svg-icon {
+    --q-icon-color: #ff5733; /* Custom color */
+  }
+</style>

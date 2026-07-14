@@ -46,7 +46,7 @@
         v-if="state.insurance != null"
         flat
         round
-        color="green"
+        color="tertiary"
         icon="mdi-pencil"
         @click="edit"
       >
@@ -56,7 +56,7 @@
       </q-btn>
       <q-space />
       <q-btn
-        color="grey"
+        color="secondary"
         round
         flat
         dense

@@ -1,147 +1,154 @@
 <template>
-  <div class="q-pa-md">
-    <div class="q-pa-md q-gutter-sm">
-      <q-breadcrumbs>
-        <q-breadcrumbs-el icon="home" to="/" />
-        <q-breadcrumbs-el label="Configuraciones" icon="mdi-cog" />
-        <q-breadcrumbs-el label="Registro Usuarios" />
-      </q-breadcrumbs>
-    </div>
-    <q-form @submit="confirmChanges()" ref="form">
-      <div class="row q-col-gutter-md">
-        <div class="col-12 col-sm-6">
-          <q-input
-            v-model="state.firstName"
-            dense
-            label="Nombres *"
-            lazy-rules
-            :rules="[required, onlyLetters]"
-            @keydown="blockNumbers"
-          />
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-input
-            v-model="state.lastName"
-            dense
-            label="Apellidos *"
-            lazy-rules
-            :rules="[required, onlyLetters]"
-            @keydown="blockNumbers"
-          />
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-select
-            :option-value="(item) => (item === null ? null : item.name)"
-            option-label="name"
-            map-options
-            dense
-            v-model="state.role"
-            :options="state.roles"
-            label="Perfil *"
-            emit-value
-            lazy-rules
-            :rules="[isNotNull, required]"
-            @update:model-value="getAdditionalInfo"
-          >
-          </q-select>
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-select
-            option-value="id"
-            option-label="description"
-            map-options
-            dense
-            emit-value
-            v-model="state.documentType"
-            :options="state.allDocumentType"
-            label="Tipo de identificacion *"
-            lazy-rules
-            :rules="[isNotNull]"
-            @update:model-value="updateValidationRules"
-          />
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-input
-            label="Numero identificacion *"
-            dense
-            :rules="inputRules"
-            lazy-rules
-            v-model="state.documentNumber"
-          />
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-input
-            v-model="state.phoneNumber"
-            dense
-            label="Telefono *"
-            :mask="state.phoneFormat?.format"
-            lazy-rules
-            :rules="[required]"
-            @keydown="preventE"
-          >
-            <template v-slot:prepend>
-              <q-avatar size="24px" color="gray">{{
-                state.phoneFormat?.callingCode
-              }}</q-avatar>
-            </template>
-          </q-input>
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-input
-            label="Correo electronico *"
-            dense
-            type="email"
-            :rules="[required, emailRequired]"
-            lazy-rules
-            v-model="state.email"
-          />
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-input
-            label="Registro Medico *"
-            dense
-            :rules="[required]"
-            lazy-rules
-            v-model="state.medicalRegister"
-            v-if="state.role == 'Doctor'"
-          />
-          <q-select
-            option-value="id"
-            option-label="name"
-            map-options
-            dense
-            emit-value
-            multiple
-            use-chips
-            v-model="state.medicalOffice"
-            :options="state.allMedicalOffice"
-            label="Consultorios *"
-            lazy-rules
-            :rules="[isNotNull, required]"
-            v-if="state.role == 'Secretary'"
-          />
-        </div>
-        <div class="col-12 col-sm-6">
-          <q-select
-            option-value="id"
-            option-label="description"
-            use-chips
-            map-options
-            dense
-            emit-value
-            multiple
-            v-model="state.speciality"
-            :options="state.allSpecialities"
-            label="Especialidades *"
-            lazy-rules
-            :rules="[isNotNull]"
-            v-if="state.role == 'Doctor'"
-          />
-        </div>
+  <q-page class="q-pa-sm">
+    <div class="q-pa-md">
+      <div class="q-pa-md q-gutter-sm">
+        <q-breadcrumbs>
+          <q-breadcrumbs-el icon="home" to="/" />
+          <q-breadcrumbs-el label="Configuraciones" icon="mdi-cog" />
+          <q-breadcrumbs-el label="Registro Usuarios" />
+        </q-breadcrumbs>
       </div>
-      <q-btn label="Guardar" type="submit" color="primary" />
-    </q-form>
-  </div>
+
+      <q-card flat style="height: 84vh">
+        <q-card-section>
+          <q-form @submit="confirmChanges()" ref="form">
+            <div class="row q-col-gutter-md">
+              <div class="col-12 col-sm-6">
+                <q-input
+                  v-model="state.firstName"
+                  dense
+                  label="Nombres *"
+                  lazy-rules
+                  :rules="[required, onlyLetters]"
+                  @keydown="blockNumbers"
+                />
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-input
+                  v-model="state.lastName"
+                  dense
+                  label="Apellidos *"
+                  lazy-rules
+                  :rules="[required, onlyLetters]"
+                  @keydown="blockNumbers"
+                />
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-select
+                  :option-value="(item) => (item === null ? null : item.name)"
+                  option-label="name"
+                  map-options
+                  dense
+                  v-model="state.role"
+                  :options="state.roles"
+                  label="Perfil *"
+                  emit-value
+                  lazy-rules
+                  :rules="[isNotNull, required]"
+                  @update:model-value="getAdditionalInfo"
+                >
+                </q-select>
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-select
+                  option-value="id"
+                  option-label="description"
+                  map-options
+                  dense
+                  emit-value
+                  v-model="state.documentType"
+                  :options="state.allDocumentType"
+                  label="Tipo de identificacion *"
+                  lazy-rules
+                  :rules="[isNotNull]"
+                  @update:model-value="updateValidationRules"
+                />
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-input
+                  label="Numero identificacion *"
+                  dense
+                  :rules="inputRules"
+                  lazy-rules
+                  v-model="state.documentNumber"
+                />
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-input
+                  v-model="state.phoneNumber"
+                  dense
+                  label="Telefono *"
+                  :mask="state.phoneFormat?.format"
+                  lazy-rules
+                  :rules="[required]"
+                  @keydown="preventE"
+                >
+                  <template v-slot:prepend>
+                    <q-avatar size="24px" color="gray">{{
+                      state.phoneFormat?.callingCode
+                    }}</q-avatar>
+                  </template>
+                </q-input>
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-input
+                  label="Correo electronico *"
+                  dense
+                  type="email"
+                  :rules="[required, emailRequired]"
+                  lazy-rules
+                  v-model="state.email"
+                />
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-input
+                  label="Registro Medico *"
+                  dense
+                  :rules="[required]"
+                  lazy-rules
+                  v-model="state.medicalRegister"
+                  v-if="state.role == 'Doctor'"
+                />
+                <q-select
+                  option-value="id"
+                  option-label="name"
+                  map-options
+                  dense
+                  emit-value
+                  multiple
+                  use-chips
+                  v-model="state.medicalOffice"
+                  :options="state.allMedicalOffice"
+                  label="Consultorios *"
+                  lazy-rules
+                  :rules="[isNotNull, required]"
+                  v-if="state.role == 'Secretary'"
+                />
+              </div>
+              <div class="col-12 col-sm-6">
+                <q-select
+                  option-value="id"
+                  option-label="description"
+                  use-chips
+                  map-options
+                  dense
+                  emit-value
+                  multiple
+                  v-model="state.speciality"
+                  :options="state.allSpecialities"
+                  label="Especialidades *"
+                  lazy-rules
+                  :rules="[isNotNull]"
+                  v-if="state.role == 'Doctor'"
+                />
+              </div>
+            </div>
+            <q-btn label="Guardar" type="submit" color="primary" />
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </div>
+  </q-page>
 </template>
 <script setup lang="ts">
   import { inject, onMounted, ref } from 'vue';

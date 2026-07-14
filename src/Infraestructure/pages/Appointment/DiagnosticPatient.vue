@@ -81,7 +81,6 @@
   <br /> -->
   <q-input
     v-model="state.diagnosticObservations"
-    filled
     type="textarea"
     label="Observaciones"
     autogrow

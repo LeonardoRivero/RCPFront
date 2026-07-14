@@ -108,7 +108,7 @@
         const statusButton: HTMLInputElement | null =
           document.querySelector('.fc-today-button');
         if (statusButton != null) {
-          statusButton.style.background = 'red';
+          statusButton.style.background = '#e63946';
           // statusButton.style.borderRadius = '90%';
           // statusButton.style.height = '20px';
           // statusButton.style.width = '20px';
@@ -119,7 +119,7 @@
         const statusButton: HTMLInputElement | null =
           document.querySelector('.fc-today-button');
         if (statusButton) {
-          statusButton.style.background = 'green';
+          statusButton.style.background = '#457b9d';
           // statusButton.style.borderRadius = '50%';
           // statusButton.style.height = '20px';
           // statusButton.style.width = '20px';
@@ -131,10 +131,10 @@
             element.color = 'gray';
           }
           if (diff == 0) {
-            element.color = 'red';
+            element.color = 'accent';
           }
           if (diff > 0) {
-            element.color = 'green';
+            element.color = 'tertiary';
           }
         });
       },

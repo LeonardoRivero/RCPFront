@@ -35,7 +35,7 @@
           v-if="state.pathology != null"
           flat
           round
-          color="green"
+          color="tertiary"
           icon="mdi-pencil"
           @click="edit()"
         >
@@ -45,7 +45,7 @@
         </q-btn>
         <q-space />
         <q-btn
-          color="grey"
+          color="secondary"
           round
           flat
           dense
@@ -79,54 +79,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { QForm } from 'quasar';
-import { PathologicalHistoryController } from 'src/Adapters/PathologicalHistoryAdapter';
-import { PathologicalHistoryResponse } from 'src/Domine/Responses';
-import { PathologicalHistoryState } from 'src/Domine/IStates';
-import { required, isNotNull } from 'src/Application/Utilities/Helpers';
-import { IPathologycalHistory } from 'src/Domine/Request';
-import 'src/css/app.sass';
+  import { defineComponent, onMounted, reactive, ref } from 'vue';
+  import { QForm } from 'quasar';
+  import { PathologicalHistoryController } from 'src/Adapters/PathologicalHistoryAdapter';
+  import { PathologicalHistoryResponse } from 'src/Domine/Responses';
+  import { PathologicalHistoryState } from 'src/Domine/IStates';
+  import { required, isNotNull } from 'src/Application/Utilities/Helpers';
+  import { IPathologycalHistory } from 'src/Domine/Request';
+  import 'src/css/app.sass';
 
-export default defineComponent({
-  name: 'PathologicalHistoryForm',
-  setup() {
-    const state: PathologicalHistoryState = reactive({
-      currentPathology: {} as IPathologycalHistory,
-      pathology: null,
-      expanded: false,
-      allPathologies: <Array<PathologicalHistoryResponse>>[],
-    });
-    const controller = PathologicalHistoryController.getInstance(state);
-    const form = ref<QForm>();
+  export default defineComponent({
+    name: 'PathologicalHistoryForm',
+    setup() {
+      const state: PathologicalHistoryState = reactive({
+        currentPathology: {} as IPathologycalHistory,
+        pathology: null,
+        expanded: false,
+        allPathologies: <Array<PathologicalHistoryResponse>>[],
+      });
+      const controller = PathologicalHistoryController.getInstance(state);
+      const form = ref<QForm>();
 
-    onMounted(async () => {
-      state.allPathologies = await controller.getAll();
-    });
+      onMounted(async () => {
+        state.allPathologies = await controller.getAll();
+      });
 
-    return {
-      state,
-      form,
-      required,
-      isNotNull,
-      add() {
-        controller.add();
-      },
-      edit() {
-        controller.edit();
-      },
-      async confirmChanges() {
-        const isValid = await form.value?.validate();
-        if (isValid == false) return;
-        await controller.saveOrUpdate();
-      },
-      pathologyChanged(val: PathologicalHistoryResponse) {
-        controller.pathologyChanged(val);
-      },
-      clear() {
-        return;
-      },
-    };
-  },
-});
+      return {
+        state,
+        form,
+        required,
+        isNotNull,
+        add() {
+          controller.add();
+        },
+        edit() {
+          controller.edit();
+        },
+        async confirmChanges() {
+          const isValid = await form.value?.validate();
+          if (isValid == false) return;
+          await controller.saveOrUpdate();
+        },
+        pathologyChanged(val: PathologicalHistoryResponse) {
+          controller.pathologyChanged(val);
+        },
+        clear() {
+          return;
+        },
+      };
+    },
+  });
 </script>

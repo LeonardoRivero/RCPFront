@@ -1,9 +1,6 @@
 <template>
-  <q-page class="q-pa-sm">
-    <div class="text-h6 text-grey">
-      Cita Médica
-      <q-separator inset />
-    </div>
+  <q-page class="q-pa-sm" style="background-color: whitesmoke">
+    <div class="text-h6" style="color: #003262">Cita Médica</div>
     <br />
     <div class="row q-col-gutter-md">
       <div class="col-12 col-sm-9">
@@ -12,7 +9,7 @@
             <InfoPatientPanel />
           </div>
           <div class="col-12 col-sm-4">
-            <q-card flat bordered>LastMeditions</q-card>
+            <q-card flat>LastMeditions</q-card>
           </div>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <q-stepper
@@ -82,7 +79,7 @@
         </div>
       </div>
       <div class="col-12 col-sm-3">
-        <q-card flat bordered> <LastAppointmentsPanel /> </q-card>
+        <q-card flat> <LastAppointmentsPanel /> </q-card>
       </div>
     </div>
   </q-page>

@@ -2,40 +2,40 @@
   <q-list>
     <q-item clickable tag="a" link to="/index">
       <q-item-section avatar>
-        <q-icon name="home" />
+        <q-icon name="home" color="white" />
       </q-item-section>
 
       <q-item-section>
-        <q-item-label>{{ 'Inicio' }}</q-item-label>
+        <q-item-label style="color: white">{{ 'Inicio' }}</q-item-label>
       </q-item-section>
     </q-item>
 
     <q-item clickable tag="a" link to="/appointment">
       <q-item-section avatar>
-        <q-icon name="mdi-notebook" />
+        <q-icon name="mdi-notebook" color="white" />
       </q-item-section>
 
       <q-item-section>
-        <q-item-label>{{ 'Cita Medica' }}</q-item-label>
+        <q-item-label style="color: white">{{ 'Cita Medica' }}</q-item-label>
       </q-item-section>
     </q-item>
 
     <q-item clickable tag="a" link to="/patient">
       <q-item-section avatar>
-        <q-icon name="mdi-account-multiple-plus" />
+        <q-icon name="mdi-account-multiple-plus" color="white" />
       </q-item-section>
 
       <q-item-section>
-        <q-item-label>{{ 'Pacientes' }}</q-item-label>
+        <q-item-label style="color: white">{{ 'Pacientes' }}</q-item-label>
       </q-item-section>
     </q-item>
 
     <q-item clickable tag="a" link to="/schedule">
       <q-item-section avatar>
-        <q-icon name="mdi-calendar" />
+        <q-icon name="mdi-calendar" color="white" />
       </q-item-section>
       <q-item-section>
-        <q-item-label>{{ 'Agenda' }}</q-item-label>
+        <q-item-label style="color: white">{{ 'Agenda' }}</q-item-label>
       </q-item-section>
     </q-item>
 
@@ -46,7 +46,7 @@
             <img :src="icons.schedule_single" />
           </q-icon>
         </q-item-section>
-        <q-item-section>Admisiones</q-item-section>
+        <q-item-section style="color: white">Admisiones</q-item-section>
       </template>
       <!-- <q-item clickable tag="a" link to="/appointment/list">
         <q-item-section avatar>
@@ -56,16 +56,15 @@
           <q-item-label>{{ 'Listado' }}</q-item-label>
         </q-item-section>
       </q-item> -->
-      <q-item clickable tag="a" link to="/admission">
+      <q-item clickable tag="a" link to="/admission" style="color: white">
         <q-item-section avatar>
           <q-icon>
             <img :src="icons.scheduleCalendar" />
           </q-icon>
         </q-item-section>
-        <q-item-section>Admisiones</q-item-section>
+        <q-item-section>Nueva Admision</q-item-section>
       </q-item>
     </q-expansion-item>
-
     <!-- <q-item clickable tag="a" link to="/clinichistory">
       <q-item-section avatar>
         <q-icon name="mdi-notebook" />
@@ -94,6 +93,7 @@
       :label="item.label"
       expand-separator
       :content-inset-level="1"
+      style="color: white"
     >
       <q-list v-if="item.children">
         <q-item
@@ -105,9 +105,11 @@
           :to="child.linkTo"
         >
           <q-item-section avatar>
-            <q-icon :name="child.icon" />
+            <q-icon :name="child.icon" color="white" />
           </q-item-section>
-          <q-item-section>{{ child.label }}</q-item-section>
+          <q-item-section style="color: white">{{
+            child.label
+          }}</q-item-section>
         </q-item>
       </q-list>
     </q-expansion-item>
@@ -119,6 +121,7 @@
   import { IHandleUserState } from 'src/Domine/IPatterns';
   import { GroupUser } from 'src/Domine/Types';
   import { inject, ref } from 'vue';
+
   const menuItems = ref([
     {
       icon: 'settings',

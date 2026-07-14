@@ -28,7 +28,7 @@
                 @click="onSearchPatient"
               />
               <q-btn
-                color="info"
+                color="warning"
                 icon="description"
                 label="Generar Informe"
                 @click="onGenerateReport"
@@ -234,7 +234,7 @@
 
   const onGenerateReport = () => {
     $q.notify({
-      color: 'info',
+      color: 'warning',
       message: 'Generando informe',
       icon: 'description',
     });

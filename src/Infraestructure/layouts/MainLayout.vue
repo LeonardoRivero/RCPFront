@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header class="bg-white" bordered>
       <q-toolbar>
         <q-btn
           flat
@@ -9,12 +9,13 @@
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
+          color="black"
         />
         <q-toolbar-title v-if="!$q.screen.xs"></q-toolbar-title>
         <div>Mercurio Version(Beta)</div>
         <q-space v-if="$q.screen.xs" />
         <q-btn dense flat no-wrap>
-          <q-avatar color="white" text-color="primary">{{
+          <q-avatar color="green-1" text-color="blue-10">{{
             handleUserState.store.initialLetters
           }}</q-avatar>
           <q-icon name="arrow_drop_down" size="16px" />
@@ -56,7 +57,7 @@
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="custom-bg">
       <q-list>
         <q-item-label header>
-          <q-card flat style="height: 300px">
+          <q-card flat style="height: 300px; background: none">
             <img src="~assets/undraw_doctors_p6aq.svg" alt="item" />
             <q-card-section> </q-card-section>
           </q-card>
@@ -125,6 +126,6 @@
     background: 'white' !important;
   }
   .custom-bg {
-    background-color: 'white'; /* Cambia el color a lo que necesites */
+    background-color: #003262; /* Cambia el color a lo que necesites */
   }
 </style>

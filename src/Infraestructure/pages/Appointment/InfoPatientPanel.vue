@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered class="bg-grey-1">
+  <q-card flat class="bg-tertiary2">
     <q-card-actions>
       <q-item-label caption>Nombre:</q-item-label>
       <q-item-label class="q-mb-xs">
@@ -11,12 +11,14 @@
       <q-space />
       <q-item-label caption>N° Identificacion:</q-item-label>
       <q-item-label class="q-mb-xs">
-        {{ state.identificationPatient }}</q-item-label
-      >
+        <b>
+          {{ state.identificationPatient }}
+        </b>
+      </q-item-label>
       <q-space />
 
       <q-btn
-        color="grey"
+        color="secondary"
         round
         flat
         dense
